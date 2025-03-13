@@ -1,0 +1,22 @@
+---
+services:
+  scheduler:
+    image: mcuadros/ofelia:latest
+    container_name: scheduler
+    environment:
+      - TZ=Europe/Amsterdam
+    # user: 1000:1000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config/ofelia.ini:/etc/ofelia/config.ini:ro
+      - /mnt/data/appdata/ofelia/logs:/logs:rw
+    restart: unless-stopped
+    networks:
+      - backend
+      - frontend
+
+networks:
+  backend:
+    external: true
+  frontend:
+    external: true
