@@ -6,7 +6,6 @@ services:
     restart: "no"
     entrypoint: ["/bin/bash", "-c"]
     command: ["ls -al /setup && ls -al /config && cp -f /setup/ofelia.ini /config/config.ini"]
-    env_file: .env
     volumes:
       - /mnt/data/appdata/ofelia:/config:rw
       - ./config:/setup
