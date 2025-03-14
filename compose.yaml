@@ -19,7 +19,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /mnt/data/appdata/ofelia/config:/etc/ofelia
-      - /mnt/data/appdata/ofelia/logs:/logs:rw
     restart: unless-stopped
     networks:
       - backend
