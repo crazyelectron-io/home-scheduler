@@ -1,5 +1,15 @@
 ---
 services:
+  init-scheduler:
+    container_name: init-scheduler
+    image: debian:stable-slim
+    restart: "no"
+    entrypoint: ["/bin/bash", "-c"]
+    command: ["ls -al /setup && ls -al /config && cp -f /setup/ofelia.ini /config/config.ini"]
+    env_file: .env
+    volumes:
+      - /mnt/data/appdata/ofelia:/config:rw
+      - ./config:/setup
 
   scheduler:
     image: mcuadros/ofelia:latest
@@ -9,12 +19,14 @@ services:
     # user: 1000:1000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./config:/etc/ofelia:ro
+      - /mnt/data/appdata/ofelia/config:/etc/ofelia
       - /mnt/data/appdata/ofelia/logs:/logs:rw
     restart: unless-stopped
     networks:
       - backend
       - frontend
+    depends_on:
+      - init-scheduler
 
 networks:
   backend:
