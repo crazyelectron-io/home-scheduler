@@ -5,7 +5,7 @@ services:
     image: debian:stable-slim
     restart: "no"
     entrypoint: ["/bin/bash", "-c"]
-    command: ["ls -al /setup && ls -al /config && cp -f /setup/ofelia.ini /config/config.ini"]
+    command: ["ls -al /setup && ls -al /config && cp -f /setup/ofelia.ini /config/config/config.ini"]
     volumes:
       - /mnt/data/appdata/ofelia:/config:rw
       - ./config:/setup
